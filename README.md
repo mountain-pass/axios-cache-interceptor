@@ -2,7 +2,7 @@
 
 A clean, minimal implementation of common HTTP caching mechanisms for axios.
 
-Provides a wrapper around an axios instance to enable caching.
+Provides a wrapper around an axios instance to enable out of the box, cache strategies.
 
 Stores response objects for the purpose of:
 
@@ -19,13 +19,13 @@ Default Storage (In Memory) can be overridden, by providing a custom implementat
 
 # Install
 
-```
+```sh
 npm i @mountainpass/axios-cache-interceptor
 ```
 
 # Usage
 
-```
+```javascript
 import { wrapAxios } from "@mountainpass/axios-cache-interceptor";
 
 // setup
