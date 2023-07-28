@@ -8,16 +8,32 @@ Almost all caching logic is handled by the browser's native caching and/or inter
 
 # Implementation
 
-Stores response objects for the purpose of:
+The wrapper stores all successful `AxiosResponse` objects for the purpose of:
 
-1. returning a cached response if the server returns a 304 Not Modified
-1. determining if a response is fresh or stale when re-requesting
+1. returning a cached response, if the server returns a 304 Not Modified
+2. determining if a response is `fresh` or `stale` when re-requesting an endpoint
 
-Supports response headers: `Etag`, `Last-Modified`, `Cache-Control (max-age, stale-while-revalidate)`, `Date`
+Supports response headers:
+- [`Etag`](https://datatracker.ietf.org/doc/html/rfc7232#section-2.3)
+- [`Last-Modified`](https://datatracker.ietf.org/doc/html/rfc7232#section-2.2)
+- [`Cache-Control max-age`](https://datatracker.ietf.org/doc/html/rfc7234#section-5.2.2.8)
+- [`Cache-Control stale-while-revalidate`](https://datatracker.ietf.org/doc/html/rfc5861#section-3)
+- [`Date`](https://datatracker.ietf.org/doc/html/rfc2616#section-14.18)
 
-Supports request headers: `If-None-Match`, `If-Modified-Since`
+Supports response status:
+- [`304 Not Modified`](https://datatracker.ietf.org/doc/html/rfc7232#section-4.1)
 
-Default Storage (In Memory) can be overridden, by providing a custom implementation that extends the `Storage` interface.
+Automatically adds request headers (if relevant):
+- [`If-None-Match`](https://datatracker.ietf.org/doc/html/rfc7232#section-3.2)
+- [`If-Modified-Since`](https://datatracker.ietf.org/doc/html/rfc7232#section-3.3)
+
+## Cache
+
+The default cache, provides a bare minimum implementation. It uses an inmemory map to store all successful responses. There is no cache eviction, and no persistence.
+
+It uses "`${request.method}#${request.url}`" as a key, for storing cached data (Note: no query params or headers).
+
+The default caching implementation can be overridden, by providing a custom implementation that implements the `Storage` interface.
 
 # Install
 
@@ -25,7 +41,7 @@ Default Storage (In Memory) can be overridden, by providing a custom implementat
 npm i @mountainpass/axios-cache-interceptor
 ```
 
-# Usage
+# Usage (Web Client)
 
 ```javascript
 import { wrapAxios } from "@mountainpass/axios-cache-interceptor";
@@ -39,6 +55,23 @@ const result = await axiosInstance.get('http://www.localhost:3000/test')
 // check browser cache status
 console.log(result.headers['x-cache-status']) // 'fresh' | 'stale' | 'none'
 ```
+
+# Server Side Example
+
+Here is an example response, which utilises both `Etag` and `stale-while-revalidate` cache controls.
+
+```javascript
+const app = express();
+
+app.set('etag', true) // (redundant, default is on)
+
+app.get("/test/", (req: Request, res: Response) => {
+  res.setHeader("Cache-Control", "public, max-age=60, stale-while-revalidate=3600")
+  res.json({ your: 'response' })
+});
+```
+
+For an example of the api / ui integration, please check the [example](example) folder.
 
 # `x-cache-status` response header
 
