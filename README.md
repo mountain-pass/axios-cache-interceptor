@@ -33,7 +33,7 @@ The default cache, provides a bare minimum implementation. It uses an inmemory m
 
 It uses "`${request.method}#${request.url}`" as a key, for storing cached data (Note: no query params or headers).
 
-The default caching implementation can be overridden, by providing a custom implementation that implements the `Storage` interface.
+The default caching implementation can be overridden, by providing a custom implementation that implements the `CacheInterface` interface.
 
 # Install
 

@@ -1,0 +1,14 @@
+env:
+  default:
+    SKIP_VERSION_CHECK: false
+scripts:
+
+  build:
+    $cmd: tsc --build --verbose
+
+  publish:
+    $cmd: |
+      tsc --build --verbose
+      npm version patch --force
+      npm publish --access public
+
