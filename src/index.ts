@@ -99,10 +99,12 @@ export const wrapAxios = (
         if (cached && cached.headers.etag) {
           config.headers["If-None-Match"] = cached.headers.etag;
         }
-        // if last-modified (/or date) exists, then use the If-Modified-Since header...
-        if (cached && cached.headers["last-modified"]) {
-          config.headers["If-Modified-Since"] = cached.headers["last-modified"];
-        } else if (cached && cached.headers["date"]) {
+        // else if last-modified exists, then use the If-Modified-Since header...
+        else if (cached && cached.headers["last-modified"]) {
+            config.headers["If-Modified-Since"] = cached.headers["last-modified"];
+        }
+        // else if date exists, then use the If-Modified-Since header...
+        else if (cached && cached.headers["date"]) {
           config.headers["If-Modified-Since"] = cached.headers["date"];
         }
       }
