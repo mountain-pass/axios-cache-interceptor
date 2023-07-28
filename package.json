@@ -22,7 +22,7 @@
   "private": false,
   "scripts": {
     "build": "tsc --build",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "initialPublish": "npm publish --access public",
     "bumpVersion": "npm version patch --force"
   },
