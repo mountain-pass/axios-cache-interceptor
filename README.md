@@ -17,6 +17,12 @@ Supports request headers: `If-None-Match`, `If-Modified-Since`
 
 Default Storage (In Memory) can be overridden, by providing a custom implementation that extends the `Storage` interface.
 
+# Install
+
+```
+npm i @mountainpass/axios-cache-interceptor
+```
+
 # Usage
 
 ```
