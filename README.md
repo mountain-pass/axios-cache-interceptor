@@ -59,3 +59,11 @@ We rely heavily on the browser's inbuilt caching mechanisms. Here is the request
    2. else, if `last-modified` exists, send `If-Modified-Since`
    3. else, if `date` exists, send `If-Modified-Since`
 
+
+# Alterantives
+
+I was inspired by https://github.com/arthurfiorette/axios-cache-interceptor , however:
+
+- It is very complex
+- It is very large (1.2.0 = 463kB)
+- It does not support `stale-while-revalidate` - https://github.com/arthurfiorette/axios-cache-interceptor/issues/512
