@@ -1,8 +1,9 @@
 {
   "name": "@mountainpass/axios-cache-interceptor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A clean, minimal implementation of common HTTP caching mechanisms.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "author": "Mountain Pass <info@mountain-pass.com.au>",
   "contributors": [
     "Nick Grealy <nickgrealy@gmail.com>",
