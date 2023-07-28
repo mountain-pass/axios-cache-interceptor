@@ -35,7 +35,7 @@ const axiosInstance = wrapAxios(axiosInstance)
 const result = await axiosInstance.get('http://www.localhost:3000/test')
 
 // check browser cache status
-console.log(result.headers['x-cache-status']) // 'fresh' | 'stale' ( | 'none')
+console.log(result.headers['x-cache-status']) // 'fresh' | 'stale' | 'none'
 ```
 
 # `x-cache-status` response header
