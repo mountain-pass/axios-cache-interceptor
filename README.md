@@ -60,7 +60,7 @@ We rely heavily on the browser's inbuilt caching mechanisms. Here is the request
    3. else, if `date` exists, send `If-Modified-Since`
 
 
-# Alterantives
+# Alternatives
 
 I was inspired by https://github.com/arthurfiorette/axios-cache-interceptor , however:
 
