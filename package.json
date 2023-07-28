@@ -1,0 +1,44 @@
+{
+  "name": "@mountainpass/axios-cache-interceptor",
+  "version": "1.0.0",
+  "description": "A clean, minimal implementation of common HTTP caching mechanisms.",
+  "main": "index.js",
+  "author": "Nick Grealy <nickgrealy@gmail.com>",
+  "contributors": [
+    "Nick Grealy <nickgrealy@gmail.com>",
+    "Nick Grealy <nick@mountain-pass.com.au>"
+  ],
+  "keywords": [
+    "axios",
+    "cache",
+    "interceptor",
+    "stale-while-revalidate",
+    "etag",
+    "if-modified-since",
+    "if-none-match"
+  ],
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mountain-pass/axios-cache-interceptor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mountain-pass/axios-cache-interceptor/issues"
+  },
+  "homepage": "https://github.com/mountain-pass/axios-cache-interceptor#readme",
+  "peerDependencies": {
+    "axios": "^1"
+  },
+  "devDependencies": {
+    "@types/axios": "0.14.0",
+    "axios": "1.4.0",
+    "typescript": "5.1.6"
+  },
+  "files": [
+    "dist"
+  ]
+}

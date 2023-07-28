@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "outDir": "dist",
+    "module": "esnext",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "declaration": true,
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "example"]
+}
