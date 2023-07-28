@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A clean, minimal implementation of common HTTP caching mechanisms.",
   "main": "index.js",
-  "author": "Nick Grealy <nickgrealy@gmail.com>",
+  "author": "Mountain Pass <info@mountain-pass.com.au>",
   "contributors": [
     "Nick Grealy <nickgrealy@gmail.com>",
     "Nick Grealy <nick@mountain-pass.com.au>"
