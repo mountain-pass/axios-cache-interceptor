@@ -40,11 +40,11 @@ console.log(result.headers['x-cache-status']) // 'fresh' | 'stale' | 'none'
 
 # `x-cache-status` response header
 
-The cache status is a derived value, based on the HTTP headers `Date`, `Cache-Control: max-age` and `Cache-Control: stale-while-revalidate` and the current date timestamp (i.e. `Date.now()`).
+The cache status is a derived value, based on the HTTP headers `Date`, `Cache-Control: max-age`, `Cache-Control: stale-while-revalidate` and the current date timestamp (i.e. `Date.now()`).
 
-It's very useful, for determining if a Reponse is `stale`, and may need a re-request in the future.
+It's very useful for determining if a Reponse is `stale`, which may require refetching in the future.
 
-- `fresh` - If `Date.now()` is between `Date` and `Date + max-age`..
+- `fresh` - If `Date.now()` is between `Date` and `Date + max-age`.
 - `stale` - If `Date.now()` is between `Date + max-age` and `Date + max-age + stale-while-revalidate`.
 - `none` - If `Date.now()` is greater than `Date + max-age + stale-while-revalidate`.
 
