@@ -21,7 +21,9 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "initialPublish": "npm publish --access public",
+    "bumpVersion": "npm version patch --force"
   },
   "repository": {
     "type": "git",
