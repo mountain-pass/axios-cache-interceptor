@@ -33,7 +33,7 @@ Automatically adds request headers (if relevant):
 
 ## Cache
 
-The default cache, provides a bare minimum implementation.
+The default cache is an [InMemoryCache](src/InMemoryCache.ts) - it provides a bare minimum implementation.
 
 - It uses an inmemory map to store all successful `GET` responses. 
 - There is no cache eviction.
