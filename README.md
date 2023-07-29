@@ -6,7 +6,7 @@ Provides a wrapper around an axios instance to enable out of the box, cache stra
 
 Almost all caching logic is handled by the browser's native caching and/or intermediary caches (i.e. web proxy).
 
-Additionally, provides an indication of whether your response is `fresh`, `stale` or `none` (not cached. @see [`x-cache-status` response header](`x-cache-status` response header) below).
+Additionally, provides an indication of whether your response is `fresh`, `stale` or `none` (not cached. @see [`x-cache-status` response header](#x-cache-status-response-header) below).
 
 **!! NOTE !!:** Determining if a Reponse is `stale` is extremly useful. If you receive a `stale` status, you know that the browser is asychronously fetching fresh data in the background. If you re-pull the data after a couple of seconds, you will now have an immediate response with the latest data.
 
@@ -33,11 +33,18 @@ Automatically adds request headers (if relevant):
 
 ## Cache
 
-The default cache, provides a bare minimum implementation. It uses an inmemory map to store all successful responses. There is no cache eviction, and no persistence.
+The default cache, provides a bare minimum implementation.
 
-It uses "`${request.method}#${request.url}`" as a key, for storing cached data (Note: no query params or headers).
+- It uses an inmemory map to store all successful `GET` responses. 
+- There is no cache eviction.
+- There is no persistence (data is transient).
+- It uses "`${request.method}#${request.url}`" as a key, for storing cached data (Note: no query params or headers).
 
-The default caching implementation can be overridden, by providing a custom implementation that implements the `CacheInterface` interface.
+These options can all be overridden, by providing a custom implementation of the [`CacheInterface`](src/CacheInterface.ts) interface.
+
+```javascript
+const axiosInstance = wrapAxios(axiosInstance, myCustomCache)
+```
 
 # Install
 
