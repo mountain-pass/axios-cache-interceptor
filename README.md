@@ -6,6 +6,10 @@ Provides a wrapper around an axios instance to enable out of the box, cache stra
 
 Almost all caching logic is handled by the browser's native caching and/or intermediary caches (i.e. web proxy).
 
+Additionally, provides an indication of whether your response is `fresh`, `stale` or `none` (not cached. @see [`x-cache-status` response header](`x-cache-status` response header) below).
+
+**!! NOTE !!:** Determining if a Reponse is `stale` is extremly useful. If you receive a `stale` status, you know that the browser is asychronously fetching fresh data in the background. If you re-pull the data after a couple of seconds, you will now have an immediate response with the latest data.
+
 # Implementation
 
 The wrapper stores all successful `AxiosResponse` objects for the purpose of:
@@ -77,8 +81,6 @@ For an example of the api / ui integration, please check the [example](example) 
 
 The cache status is a derived value, based on the HTTP headers `Date`, `Cache-Control: max-age`, `Cache-Control: stale-while-revalidate` and the current date timestamp (i.e. `Date.now()`).
 
-It's very useful for determining if a Reponse is `stale`, which may require refetching in the future.
-
 - `fresh` - If `Date.now()` is between `Date` and `Date + max-age`.
 - `stale` - If `Date.now()` is between `Date + max-age` and `Date + max-age + stale-while-revalidate`.
 - `none` - If `Date.now()` is greater than `Date + max-age + stale-while-revalidate`.
@@ -102,3 +104,8 @@ I was inspired by https://github.com/arthurfiorette/axios-cache-interceptor , ho
 - It is very complex
 - It is very large (1.2.0 = 463kB)
 - It does not support `stale-while-revalidate` - https://github.com/arthurfiorette/axios-cache-interceptor/issues/512
+
+# Todo
+
+- [ ] Provide a callback/polling mechanism, to know when a stale response has been updated?
+
