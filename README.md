@@ -8,7 +8,15 @@ Almost all caching logic is handled by the browser's native caching and/or inter
 
 Additionally, provides an indication of whether your response is `fresh`, `stale` or `none` (not cached. @see [`x-cache-status` response header](#x-cache-status-response-header) below).
 
-**!! NOTE !!:** Determining if a Reponse is `stale` is extremly useful. If you receive a `stale` status, you know that the browser is asychronously fetching fresh data in the background. If you re-pull the data after a couple of seconds, you will now have an immediate response with the latest data.
+# stale responses
+
+Knowing a Reponse is `stale` is extremely useful. If you receive a `stale` status, the browser will asychronously fetch a fresh request in the background, meaing the next response will instantly respond with fresh data.
+
+You will only ever receive the same `stale` response once. Subsequent requests will wait for the background request to complete<sup>1</sup>.
+
+The `stale-while-revalidate` is not only a useful tool for providing a seamless user experience, but is also very useful for updating proxy caches. The client's asynchronous background refresh, will trigger off a refresh in shared proxy caches, meaning caches are refreshed with fresh data in the background, providing benefit to all subsequent users of the endpoint. (Ideally these proxy caches also implement `stale-while-revalidate` logic!)
+
+<sup>1</sup> *Tested in Chrome*
 
 # Implementation
 

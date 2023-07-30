@@ -38,10 +38,6 @@ export const wrapAxios = (
             config.headers["If-Modified-Since"] =
               cached.headers["last-modified"];
           }
-          // else if date exists, then use the If-Modified-Since header...
-          else if (cached && cached.headers["date"]) {
-            config.headers["If-Modified-Since"] = cached.headers["date"];
-          }
         }
         return config;
       } catch (error: any) {

@@ -21,6 +21,7 @@ export default function Home() {
   const fetch = async () => {
     const result = (await axiosInstance.get('http://www.localhost:3000/test'))
     const cacheStatus = result.headers['x-cache-status']
+    console.debug(`Received response status: ${cacheStatus}`)
     setCached(cacheStatus)
     setData(result.data)
     setLastFetched(new Date(result.headers['date']).getTime())

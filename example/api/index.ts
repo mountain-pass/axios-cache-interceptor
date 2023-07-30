@@ -1,5 +1,7 @@
 import express, { Request, Response } from "express";
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const app = express();
 
 // enable etag (default on)
@@ -25,10 +27,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/test/", (req: Request, res: Response) => {
+app.get("/test/", async (req: Request, res: Response) => {
   console.log(`request : if-none-match header : ${req.header("if-none-match")}`);
+  // simulate work being done
+  await sleep(2000);
   res.setHeader("Cache-Control", "public, max-age=10, stale-while-revalidate=10");
-  res.json({ minuteOfHour: new Date().getMinutes() }); // don't let object change too often
+  // don't let object change too often - otherwise etag will change
+  res.json({ minuteOfHour: new Date().getMinutes() });
 });
 
 app.listen(3000, () => console.log("server started: port 3000"));

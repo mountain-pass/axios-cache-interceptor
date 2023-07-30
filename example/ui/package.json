@@ -16,7 +16,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@mountainpass/axios-cache-interceptor": "1.0.5",
+    "@mountainpass/axios-cache-interceptor": "1.0.6",
     "axios": "1.4.0",
     "axios-cache-interceptor": "1.2.0",
     "gatsby": "^5.11.0",
