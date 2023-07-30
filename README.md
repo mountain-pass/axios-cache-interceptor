@@ -119,8 +119,3 @@ I was inspired by https://github.com/arthurfiorette/axios-cache-interceptor , ho
 - It is very complex
 - It is very large (1.2.0 = 463kB)
 - It does not support `stale-while-revalidate` - https://github.com/arthurfiorette/axios-cache-interceptor/issues/512
-
-# Todo
-
-- [ ] Provide a callback/polling mechanism, to know when a stale response has been updated?
-
