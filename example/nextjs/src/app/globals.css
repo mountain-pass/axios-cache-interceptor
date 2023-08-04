@@ -13,10 +13,15 @@ button {
 }
 b {
   display:inline-block;
-  width: 120px;
+  width: 130px;
 }
 .flex-row {
   display: flex;
   flex-direction: row;
+  gap: 10px;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }

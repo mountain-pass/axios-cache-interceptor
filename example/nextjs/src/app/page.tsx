@@ -1,58 +1,64 @@
 "use client"
 
-import Image from 'next/image'
-import React from 'react'
-import axios from 'axios'
 import { wrapAxios } from '@mountainpass/axios-cache-interceptor'
+import axios from 'axios'
+import React from 'react'
 
 const axiosInstance = wrapAxios(axios.create({}))
 
 export default function Home() {
   const [data, setData] = React.useState<any>(undefined)
-  const [cached, setCached] = React.useState<boolean>(false)
-  const [lastFetch, setLastFetched] = React.useState<number>(0)
-  const [now, setNow] = React.useState<number>(0)
+  const [lastFetch, setLastFetched] = React.useState<Date>(new Date(0))
+  const [now, setNow] = React.useState<Date>(new Date())
+  const [isFetching, setIsFetching] = React.useState<boolean>(false)
 
   // use effect to keep track of current time
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setNow(Date.now())
+      setNow(new Date())
     }, 1000)
     return () => clearInterval(interval)
   }, [])
 
   const fetch = async () => {
+    setIsFetching(true)
     const result = (await axiosInstance.get('/api'))
+    setIsFetching(false)
     const { data, headers } = result
-    const cacheStatus = result.headers['x-cache-status']
-    console.debug(`Received response status: ${cacheStatus}`)
-    setCached(cacheStatus)
     setData({ data, headers })
-    setLastFetched(new Date(result.headers['date']).getTime())
+    setLastFetched(new Date())
   }
   const fetchNoCache = async () => {
+    setIsFetching(true)
     const result = (await axios.get('/api'))
+    setIsFetching(false)
     const { data, headers } = result
-    const cacheStatus = result.headers['x-cache-status']
-    console.debug(`Received response status: ${cacheStatus}`)
-    setCached(cacheStatus)
     setData({ data, headers })
-    setLastFetched(new Date(result.headers['date']).getTime())
+    setLastFetched(new Date())
   }
 
   return (
     <main>
       <h4>axios-cache-interceptor testing</h4>
+      <p>
+        <i>304 only returned if within SAME minute AND past stale.</i>
+      </p>
+
+      <div className="flex-col">
+        
       <div className="flex-row">
-        <button onClick={fetch}>Fetch with Interceptor</button>
-        <button onClick={fetchNoCache}>Fetch without Interceptor</button>
+        <button onClick={fetchNoCache}>Axios.get (native)</button>
+        <button onClick={fetch}>Axios.get (interceptor)</button>
       </div>
+
+      <div><b>isFetching:</b> {isFetching ? 'true' : '-'}</div>
+      <div><b>last fetched:</b> {lastFetch.toLocaleString()}</div>
+      <div><b>now:</b> {now.toLocaleString()}</div>
+      </div>
+
       <pre>
         {JSON.stringify(data, null, 2)}
       </pre>
-      <p><b>cached:</b> {cached}</p>
-      <p><b>last fetched:</b> {lastFetch ? new Date(lastFetch).toLocaleString() : 'never'}</p>
-      <p><b>now:</b> {now ? new Date(now).toLocaleString() : 'never'}</p>
     </main>
   )
 }
