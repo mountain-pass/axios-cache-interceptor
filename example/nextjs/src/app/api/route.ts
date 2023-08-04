@@ -19,6 +19,7 @@ export async function GET(req: Request, res: any) {
         status: 200,
         headers: {
           "Cache-Control": "private, max-age=10, stale-while-revalidate=10",
+          "CDN-Cache-Control": "private, max-age=10, stale-while-revalidate=10", // vercel requires this, otherwise strips SWR
           Etag: minuteOfHourEtag,
         },
       }
