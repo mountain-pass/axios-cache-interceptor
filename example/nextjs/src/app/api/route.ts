@@ -8,7 +8,9 @@ export async function GET(req: Request, res: any) {
   console.log(`found header`, req.headers.get("if-none-match"))
   if (req.headers.get("if-none-match") === minuteOfHourEtag) {
     console.log('sending 304...')
-    return new NextResponse(null, { status: 304 });
+    return new NextResponse(null, { status: 304, headers: {
+        "Date": new Date().toISOString(),
+    } });
   } else {
     await sleep(2000);
     minuteOfHourEtag = `"${new Date().getMinutes()}"`;
@@ -20,6 +22,7 @@ export async function GET(req: Request, res: any) {
         headers: {
           "Cache-Control": "private, max-age=10, stale-while-revalidate=10",
           "CDN-Cache-Control": "private, max-age=10, stale-while-revalidate=10", // vercel requires this, otherwise strips SWR
+          "Date": new Date().toISOString(),
           Etag: minuteOfHourEtag,
         },
       }

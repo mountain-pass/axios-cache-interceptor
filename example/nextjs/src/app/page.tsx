@@ -1,10 +1,11 @@
 "use client"
 
-import { wrapAxios } from '@mountainpass/axios-cache-interceptor'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import React from 'react'
+import { wrapAxios } from './axiosWrapper'
 
 const axiosInstance = wrapAxios(axios.create({}))
+// const axiosInstance = axios.create({})
 
 export default function Home() {
   const [data, setData] = React.useState<any>(undefined)
@@ -45,7 +46,7 @@ export default function Home() {
       </p>
 
       <div className="flex-col">
-        
+
       <div className="flex-row">
         <button onClick={fetchNoCache}>Axios.get (native)</button>
         <button onClick={fetch}>Axios.get (interceptor)</button>
