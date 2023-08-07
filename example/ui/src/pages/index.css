@@ -1,0 +1,27 @@
+body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+  }
+  pre {
+    border: 1px solid grey;
+    padding: 10px 15px;
+    min-height: 100px;
+  }
+  button {
+    border: 1px solid grey;
+    padding: 4px 10px;
+    border-radius: 3px;
+  }
+  b {
+    display:inline-block;
+    width: 130px;
+  }
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  .flex-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }

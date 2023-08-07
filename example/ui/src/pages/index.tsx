@@ -1,8 +1,7 @@
-"use client"
-
 import axios, { AxiosResponse } from 'axios'
 import React from 'react'
 import { wrapAxios } from './axiosWrapper'
+import './index.css'
 
 const axiosInstance = wrapAxios(axios.create({}))
 // const axiosInstance = axios.create({})
@@ -23,7 +22,7 @@ export default function Home() {
 
   const fetch = async () => {
     setIsFetching(true)
-    const result = (await axiosInstance.get('/api'))
+    const result = (await axiosInstance.get('http://localhost:3000/api'))
     setIsFetching(false)
     const { data, headers } = result
     setData({ data, headers })
